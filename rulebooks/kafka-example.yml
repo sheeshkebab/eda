@@ -3,7 +3,8 @@
   sources:
     - ansible.eda.kafka:
        topic: syslog-ng
-       host: ec2-3-26-98-214.ap-southeast-2.compute.amazonaws.com
+       #host: ec2-3-26-98-214.ap-southeast-2.compute.amazonaws.com
+       host: ip-172-31-19-180.ap-southeast-2.compute.internal 
        port: 9092
        group_id: 0
   rules:
