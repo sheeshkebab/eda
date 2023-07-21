@@ -1,0 +1,4 @@
+- import_playbook: "/home/rhailsto/event-driven-ansible/say-what.yml"
+- import_playbook: "/home/rhailsto/event-driven-ansible/jira.yml"
+  vars: 
+    summary_x: "{{ lookup('community.general.random_string', base64=True) }}"

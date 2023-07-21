@@ -1,0 +1,7 @@
+---
+- name: say what ! 
+  hosts: all
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "{{ say }}" 

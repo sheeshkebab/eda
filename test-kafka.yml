@@ -1,0 +1,20 @@
+- name: Kafka events
+  hosts: localhost
+  sources:
+    - name: Kafka
+      ansible.eda.kafka:
+        host: ec2-3-26-98-214.ap-southeast-2.compute.amazonaws.com
+        port: 9092
+        topic: syslog-ng
+        group_id: ansible-eda 
+  rules:
+    - name: Kafka status
+      #condition: event.body is regex("to\=", ignorecase=true)
+      condition: event.body is defined 
+      action:
+        debug:
+          msg: "{{ event.body.split('/s+') }}"
+        #print_event:
+        #  pretty: true
+        #run_playbook:
+        #  name: say-what.yml

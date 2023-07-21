@@ -1,0 +1,25 @@
+- name: Kafka events
+  hosts: localhost
+  sources:
+    - ansible.eda.kafka:
+       topic: syslog-ng
+       host: ec2-3-26-98-214.ap-southeast-2.compute.amazonaws.com
+       port: 9092
+       group_id: 0
+  rules:
+
+    - name: Kafka msg1 
+      condition: event.body is search('do we see this in kafka',ignorecase=true)
+      action:
+       run_playbook:
+         name: say-what.yml
+         extra_vars:
+           say: 'say foo'
+
+    - name: Kafka msg2 
+      condition: event.body is search('do we see this in syslog',ignorecase=true)
+      action:
+       run_playbook:
+         name: say-what.yml
+         extra_vars:
+           say: 'say bar'
