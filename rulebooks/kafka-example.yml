@@ -14,7 +14,7 @@
       action:
        run_job_template:
          name: my_collection_demo
-         organisation: Default
+         organization: Default
          job_args:
            extra_vars:
              message: from eda
