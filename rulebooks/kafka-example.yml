@@ -11,15 +11,13 @@
     - name: Kafka msg1 
       condition: event.body is search('do we see this in kafka',ignorecase=true)
       action:
-       run_playbook:
-         name: say-what.yml
-         extra_vars:
-           say: 'say foo'
+       run_job_template:
+         name: my_collection_demo 
 
-    - name: Kafka msg2 
-      condition: event.body is search('do we see this in syslog',ignorecase=true)
-      action:
-       run_playbook:
-         name: say-what.yml
-         extra_vars:
-           say: 'say bar'
+#    - name: Kafka msg2 
+#      condition: event.body is search('do we see this in syslog',ignorecase=true)
+#      action:
+#       run_playbook:
+#         name: say-what.yml
+#         extra_vars:
+#           say: 'say bar'
