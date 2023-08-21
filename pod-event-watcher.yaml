@@ -1,0 +1,37 @@
+- name: Listen for Machine resource events
+  hosts: all
+  sources:
+    - sabre1041.eda.k8s:
+        api_version: v1 
+        kind: Event
+        namespace: openshift-machine-api
+        host: "{{ k8s_host }}"
+        api_key: "{{ k8s_token }}"
+  rules:
+    - name: Notify Deleted machines
+      condition: event.resource.reason == "Deleted" and event.resource.count == 1
+      action:
+        run_job_template:
+         name: my_collection_demo
+         organization: Default
+         job_args:
+           extra_vars:
+             message: from eda
+             sleep: 1
+
+          #name: "Update machine in SNOW"
+          #organization: "Default"
+          #job_args:
+          #  extra_vars:
+          #    machine: "{{ event.resource.involvedObject.name }}"
+          #    action: "delete"
+#    - name: Notify Added machines
+#      condition: event.resource.reason == "Updated" and event.resource.count == 1
+#      action:
+#        run_job_template:
+#          name: "Update machine in SNOW"
+#          organization: "Default"
+#          job_args:
+#            extra_vars:
+#              machine: "{{ event.resource.involvedObject.name }}" 
+#              action: "add" 
