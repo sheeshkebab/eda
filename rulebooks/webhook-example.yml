@@ -18,7 +18,7 @@
   ## Define the action we should take should the condition be met
 
     - name: Alertmanager Action 
-      condition: event.payload.status == 'firing"
+      condition: event.payload.status == "firing"
       action:
        run_job_template:
          name: my_collection_demo
