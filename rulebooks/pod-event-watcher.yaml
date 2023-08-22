@@ -1,4 +1,4 @@
-- name: Listen for Machine resource events
+- name: Listen for pod events
   hosts: all
   sources:
     - sabre1041.eda.k8s:
@@ -8,8 +8,8 @@
         host: "{{ k8s_host }}"
         api_key: "{{ k8s_token }}"
   rules:
-    - name: Notify Deleted machines
-      condition: event.resource.reason == "Deleted" and event.resource.count == 1
+    - name: Notify Deleted 
+      condition: event != '' 
       action:
         run_job_template:
          name: my_collection_demo
