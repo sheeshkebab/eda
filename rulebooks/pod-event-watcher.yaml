@@ -9,7 +9,7 @@
         api_key: "{{ k8s_token }}"
   rules:
     - name: Notify Deleted 
-      condition: event != '' 
+      condition: event.resource.message != '' 
       action:
         run_job_template:
          name: my_collection_demo
