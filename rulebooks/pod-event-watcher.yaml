@@ -4,7 +4,7 @@
     - sabre1041.eda.k8s:
         api_version: v1 
         kind: Event
-        namespace: helloworld 
+        namespace: pacman
         host: "{{ k8s_host }}"
         api_key: "{{ k8s_token }}"
   rules:
