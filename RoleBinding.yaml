@@ -11,3 +11,10 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
+
+
+# Then run oc create token -n ${NAMESPACE} ${SERVICE_ACCOUNT}
+
+# Alternatively, create a kubeconfig using the token:
+
+#$ oc -n ${NAMESPACE} sa create-kubeconfig ${SERVICE_ACCOUNT} > ${SERVICE_ACCOUNT}.kubeconfig
