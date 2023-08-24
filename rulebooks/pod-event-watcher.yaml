@@ -9,8 +9,7 @@
         api_key: "{{ k8s_token }}"
   rules:
     - name: Notify Pacman application faulted 
-      #condition: event.resource.message != '' 
-      condition: event.resource.message == 'Deleted pod' 
+      condition: event.resource.message is search('deleted pod',ignorecase=true)
       actions:
         - run_job_template:
             name: my_collection_demo
@@ -33,7 +32,7 @@
       condition:
         all:
           - facts.message is defined
-          - facts.message == "Created container pacman"
+          - facts.message is search('Created container',ignorecase=true)
       actions:
         - run_job_template:
             name: my_collection_demo
