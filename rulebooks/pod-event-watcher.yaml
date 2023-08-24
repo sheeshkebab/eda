@@ -9,29 +9,37 @@
         api_key: "{{ k8s_token }}"
   rules:
     - name: Notify Pacman application faulted 
-      condition: event.resource.message != '' 
-      action:
-        run_job_template:
-         name: my_collection_demo
-         organization: Default
-         job_args:
-           extra_vars:
-             message: from eda
-             sleep: 1
+      #condition: event.resource.message != '' 
+      condition: event.resource.message == 'Deleted pod' 
+      actions:
+        - run_job_template:
+            name: my_collection_demo
+            organization: Default
+            job_args:
+              extra_vars:
+                message: EDA | faulted 
+                sleep: 1
 
-          #name: "Update machine in SNOW"
-          #organization: "Default"
-          #job_args:
-          #  extra_vars:
-          #    machine: "{{ event.resource.involvedObject.name }}"
-          #    action: "delete"
-#    - name: Notify Added machines
-#      condition: event.resource.reason == "Updated" and event.resource.count == 1
-#      action:
-#        run_job_template:
-#          name: "Update machine in SNOW"
-#          organization: "Default"
-#          job_args:
-#            extra_vars:
-#              machine: "{{ event.resource.involvedObject.name }}" 
-#              action: "add" 
+#        - run_job_template:
+#            name: "[EDA] Alertmanager ITSM"
+#            organization: Default
+#            set_facts: true
+#            job_args:
+#              extra_vars:
+#                alertStatus: "{{ event.payload.status }}"
+
+
+    - name: EDA | Notify Pacman application recovered 
+      condition:
+        all:
+          - facts.message is defined
+          - facts.message == "Created container pacman"
+      actions:
+        - run_job_template:
+            name: my_collection_demo
+            #name: "[EDA] Alertmanager ITSM"
+            organization: Default
+            job_args:
+              extra_vars:
+                message: EDA | recovered 
+                ticket_number: "{{ events.m.message }}"
