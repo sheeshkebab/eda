@@ -42,3 +42,7 @@
               extra_vars:
                 message: EDA | recovered 
                 ticket_number: "{{ events.m.message }}"
+
+
+
+# https://github.com/kubealex/event-driven-automation/blob/main/rulebooks/eda-rulebook-alertmanager.yml
